@@ -1,0 +1,299 @@
+body {
+  margin: 0px;
+  background: url(Starry-stars-space-night_5120x2880.jpg) center top;
+  background-size: contain;
+}
+
+* {
+  color: #eaebefc2;;
+  box-sizing: border-box;
+}
+
+.game_name {
+  font-family: fantasy;
+  letter-spacing: 0.3em;
+  font-size:  3em;
+  color: #eaebefc2;
+}
+.navbar__brand {
+  text-decoration: none;
+}
+
+
+.navbar {
+  background: #00000082;
+  display: flex;
+  height: 50px;
+}
+
+.navbar > h1 {
+  font-size: 1.5em;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.navbar__nav {
+  display: flex;
+  height: 100%;
+  width: 64%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  list-style: none;
+  padding-inline-start: 0px;
+}
+
+
+.navbar__nav > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 20%;
+  border: 1px gray solid;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s; 
+  /* border-bottom: none; */
+}
+
+.navbar__nav > li:hover {
+  font-size: 1.1em;
+  background: #6b686882;
+}
+
+.selected {
+  /* width: 30%; */
+  font-size: 1.1em;
+  background: #6b686882;
+}
+
+.search {
+  display: flex;
+  border: 1px gray solid;
+  width: 16%;
+}
+.search > input {
+  background: #ffffffb0;;
+  color: black;
+  outline:none;
+  width: 84%;
+}
+.search_btn {
+  background: #4a5071;
+  border: none;
+  outline:none;
+  cursor: pointer;
+  text-align: center;
+  width: 23%;
+}
+
+.search_btn:hover {
+  background: #6b686882;
+}
+
+.search_btn:active {
+  background: black;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.more_streams__btn {
+  background: #00000082;
+  width: 9em;
+  height: 3em;
+  margin: 0 auto;
+  border: black solid 1px;
+  border-radius: 10px;
+  display: block;
+  margin: 2em auto;
+  margin-bottom: 3em;
+  box-shadow: black 3px 3px 3px ;
+  outline:none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.more_streams__btn:hover {
+  transform: scale(1.3);
+  background: #6b686882;
+}
+
+.more_streams__btn__hidden {
+  display: none;
+}
+
+.each_stream__preview {
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+.game {
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
+}
+
+.display_streams {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.each_stream {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-direction: column;
+  background: #00000082;
+  width: 18%;
+  border: 3px #00000082 solid;
+  border-radius: 5px;
+  box-shadow: black 5px 5px 5px ;
+  margin-bottom: 1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.each_stream:hover {
+  transform: scale(1.1);
+  background: #353333cb;
+}
+
+.profile {
+  display: flex;
+  width: 100%;
+}
+
+.profile__logo {
+  margin: 3%;
+  width: 17%;
+  height: 17%;
+  border-radius: 50%;
+}
+
+.profile__info {
+  width: 78%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.profile__status, .profile__display_name {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+} 
+
+.profile__display_name {
+  font-size: 0.8em;
+}
+
+.navbar-brand{
+  display: inline-block;
+  width: 200px;
+}
+
+@media (max-width: 1025px) {
+  .navbar > h1 {
+    width: 30%;
+  }
+} 
+@media (max-width: 991px) {
+  .navbar > h1 {
+    width: 35%;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .each_stream {
+    width: 30%;
+  }
+}
+
+@media (max-width: 769px) {
+  .each_stream {
+    width: 40%;
+  }
+  .navbar {
+    height: 100px;
+    display: block;
+  }
+  .game {
+    margin-top: 3em;
+  }
+  svg {
+    height: 30px;
+    width: auto;
+    margin: 0 auto;
+  }
+  .navbar > h1 {
+    width: 100%;
+    height: 50%;
+  }
+  .navbar__nav {
+    width: 100%;
+    height: 50%;
+  }
+  .search {
+    width: 100%;
+    height: 2em;
+  }
+
+  .search > input {
+    width: 85%;
+  }
+  .search_btn {
+    width: 15%;
+  }
+}
+
+@media (max-width: 426px) {
+  .game_name {
+    font-size: 2em;
+    letter-spacing: 0.2em;
+  }
+
+  .game {
+    margin-top: 2em;
+  }
+  .each_stream {
+    width: 90%; 
+  }
+  .navbar {
+    height: 150px;
+  }
+  .navbar > h1 {
+    height: 50px;
+  }
+  .navbar__nav {
+    height: 100px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .navbar__nav > li {
+    width: 33.333%;
+    height: 50px;
+  }
+}
