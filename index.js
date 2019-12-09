@@ -22,7 +22,7 @@ const gameInfoCreator = (res) => {
   gameInfo.name = res.name;
 };
 
-const getGameId = (gameName) => new Promise((resolve, reject) => {
+const getGameId = gameName => new Promise((resolve, reject) => {
   const request = new XMLHttpRequest();
   request.onload = () => {
     if (request.status >= 200 && request.status < 400) {
@@ -55,7 +55,7 @@ const showStreams = (user) => {
     changeLiBg();
   }
 
-  streamsData.map((item, i) => {
+  streamsData.forEach((item, i) => {
     const a = document.createElement('a');
     const tumbnailUrl = item.thumbnail_url.replace('{width}x{height}', '272x153');
     a.classList.add('each_stream');
@@ -70,34 +70,32 @@ const showStreams = (user) => {
       </div>
     </div>`;
     container.appendChild(a);
-    return null;
   });
 
   index += streamsData.length;
   isShowStreams = true;
 };
 
-const getUsersImage = () => {
-  return new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest();
-    let url = `https://api.twitch.tv/helix/users?id=${streamsData[0].user_id}`;
-    for (let i = 1; i < streamsData.length; i++) {
-      url += `&id=${streamsData[i].user_id}`;
+const getUsersImage = () => new Promise((resolve, reject) => {
+  const request = new XMLHttpRequest();
+  let url = `https://api.twitch.tv/helix/users?id=${streamsData[0].user_id}`;
+  for (let i = 1; i < streamsData.length; i++) {
+    url += `&id=${streamsData[i].user_id}`;
+  }
+  request.open('GET', url);
+  request.setRequestHeader('Client-ID', clientId);
+  request.onload = () => {
+    if (request.status >= 200 && request.status < 400) {
+      const user = JSON.parse(request.responseText);
+      resolve(user.data);
+    } else {
+      reject(request);
     }
-    request.open('GET', url);
-    request.setRequestHeader('Client-ID', clientId);
-    request.onload = () => {
-      if (request.status >= 200 && request.status < 400) {
-        const user = JSON.parse(request.responseText);
-        resolve(user.data);
-      } else {
-        reject(request);
-      }
-      request.onerror = () => console.log('error');
-    };
-    request.send();
-  });
-};
+    request.onerror = () => console.log('error');
+  };
+  request.send();
+});
+
 
 const getStreamsByGameID = id => new Promise((resolve, reject) => {
   const request = new XMLHttpRequest();
@@ -151,11 +149,10 @@ scrollEvent = () => {
 
 const pushGamesToDatalist = (games) => {
   datalist.innerHTML = '';
-  games.map((game) => {
+  games.forEach((game) => {
     const option = document.createElement('option');
     option.value = game.name;
     datalist.appendChild(option);
-    return null;
   });
 };
 
@@ -205,34 +202,19 @@ nav.addEventListener('click',
 input.addEventListener('keyup',
   (e) => {
     if (input.value.length > 2) {
-      startChangeGame(e, searchGameResult());
+      searchGameResult().then((res) => {
+        startChangeGame(e, res);
+      });
     }
   });
 
 inputBtn.addEventListener('click',
   (e) => {
     if (input.value) {
-      startChangeGame(e, searchGameResult());
+      searchGameResult().then((res) => {
+        startChangeGame(e, res);
+      });
     }
   });
 
 load();
-
-// 手動偵測 WebP
-// https://medium.com/@mingjunlu/image-optimization-using-webp-72d5641213c9
-// webp-detect.js
-window.addEventListener('DOMContentLoaded', async () => {
-  const detectWebp = () => new Promise((resolve) => {
-    const imgSrc = 'data:image/webp;base64,UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA';
-    const pixel = new Image();
-    pixel.addEventListener('load', () => {
-      const isSuccess = (pixel.width > 0) && (pixel.height > 0);
-      resolve(isSuccess);
-    });
-    pixel.addEventListener('error', () => { resolve(false); });
-    pixel.setAttribute('src', imgSrc); // 開始載入測試圖
-  });
-
-  const hasSupport = await detectWebp();
-  document.querySelector('body').classList.add(hasSupport ? 'webp' : 'no-webp');
-});

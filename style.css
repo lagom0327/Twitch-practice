@@ -4,11 +4,11 @@ body {
 }
 
 body.webp {
-  background: url(Starry-stars-space-night_5120x2880.webp) center top;
+  background: url(./Starry-stars-space-night.webp) center top;
 }
 
 body.no-webp {
-  background: url(./Starry-stars-space-night_5120x2880.jpg) center top;
+  background: url(./Starry-stars-space-night.jpg) center top;
 }
 
 * {
