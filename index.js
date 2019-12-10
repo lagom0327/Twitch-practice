@@ -107,7 +107,7 @@ const getStreamsByGameID = id => new Promise((resolve, reject) => {
     request.onerror = () => console.log('error');
   };
   request.open('GET', `https://api.twitch.tv/helix/streams?game_id=${id}&limit=20&after=${pagination}`);
-  request.setRequestHeader('Client-ID', 's16ay4uu63zxeyd938j2zhld42wmx0');
+  request.setRequestHeader('Client-ID', clientId);
   request.send();
 });
 
@@ -188,8 +188,24 @@ const startChangeGame = (e, result) => {
   return null;
 };
 
+const changeTop5GamesTab = () => new Promise((resolve, reject) => {
+  fetch('https://api.twitch.tv/helix/games/top?first=6', {
+    headers: {
+      'Client-ID': clientId,
+    },
+  }).then(res => res.json())
+    .then(({ data }) => {
+      const lis = document.querySelectorAll('.navbar__nav li');
+      // eslint-disable-next-line no-param-reassign
+      lis.forEach((li, i) => { li.innerText = data[i].name; });
+      resolve(data[0]);
+    }).catch(err => reject(err));
+});
+
 const load = () => {
-  getFirst20Streams('League of Legends');
+  changeTop5GamesTab()
+    .then(({ name }) => getFirst20Streams(name))
+    .catch(() => getFirst20Streams('League of Legends'));
 };
 
 nav.addEventListener('click',
