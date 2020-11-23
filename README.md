@@ -1,6 +1,12 @@
-### [Demo](https://lagom0327.github.io/Twitch-practice/) 
+# Twitch 熱門直播
+
+## [Demo](https://lagom0327.github.io/Twitch-practice/)
+
 ### Screenshot
+
 ![Alt Twitch](./twitch.png)
+
+## 功能
 
 - 搜尋
   - 串接 v5 API 執行搜尋功能
@@ -14,6 +20,35 @@
 - 換遊戲時上方的標題和導覽列底色也會自動換
 
 ### Built With
+
 - 使用 VanillaJS，透過原生 XMLHttpRequest（XHR）物件和 API 互動，了解底層原理
 - 使用 Promise 處理非同步事件
 - 使用 Flag `isShowStreams` 避免 `scroll` 事件多次重覆觸發
+
+## 2020-11-22 更新
+
+- 不用搜尋遊戲 ID
+
+  發現 `Get Top Game` API 現在的 Response 有附上 `Game ID`，就不用多一個步驟使用遊戲名稱尋找 `Game ID` 後才能呼叫 `Get Streams` API
+
+- 新版 API 需要 OAuth
+
+  在 Postman 執行 POST ，會返回 OAuth，OAuth 每 60 天須更新一次
+
+  ```url
+  https://id.twitch.tv/oauth2/token?client_id=<client_id>&client_secret=<client_secret>&grant_type=client_credentials
+  ```
+
+  ```json
+  {
+      "access_token": "xxxxxxxxxxxxxx",
+      "expires_in": 4832300,
+      "token_type": "bearer"
+  }
+  ```
+
+  在新版 API Request 加上 `header` `
+  
+  ```js
+    request.setRequestHeader('Authorization', "bearer <oAuth>");
+  ```
